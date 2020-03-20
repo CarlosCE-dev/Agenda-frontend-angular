@@ -15,9 +15,9 @@ export class AppComponent implements OnInit {
   constructor( private http: HttpClient ) { }
 
   agendas_temp: Agenda[] = [
-    { id: 1, titulo: 'Hola 1', descripcion: 'es una agenda 1', fecha_creado: new Date().toLocaleString() },
-    { id: 2, titulo: 'Hola 2', descripcion: 'es una agenda 2', fecha_creado: new Date().toLocaleString() },
-    { id: 3, titulo: 'Hola 3', descripcion: 'es una agenda 3', fecha_creado: new Date().toLocaleString() },
+    { id: 1, titulo: 'Hola 1', descripcion: 'es una agenda 1', fecha_creado: new Date().toLocaleString(), status: true },
+    { id: 2, titulo: 'Hola 2', descripcion: 'es una agenda 2', fecha_creado: new Date().toLocaleString(), status: false },
+    { id: 3, titulo: 'Hola 3', descripcion: 'es una agenda 3', fecha_creado: new Date().toLocaleString(), status: true },
   ]
 
   agendas: Agenda[] = [];
@@ -53,6 +53,14 @@ export class AppComponent implements OnInit {
   }
   cancel(){
     this.selectedAgenda = new Agenda();
+  }
+
+  completado(){
+    const status = true;
+    // this.http.post<Agenda>('https://jsonplaceholder.typicode.com/todos', { status: 1 } ).subscribe( ( resp ) => {
+      const agenda = this.agendas.find( a => a.id === this.selectedAgenda.id );
+      agenda.status = true;
+    // });
   }
 
   delete(){

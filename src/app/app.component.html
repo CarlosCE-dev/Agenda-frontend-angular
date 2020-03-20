@@ -13,8 +13,19 @@
             (click)="openForEdit( agenda )"
             [class.active]="agenda == selectedAgenda"
           >
-          <span class="badge badge-primary">{{ agenda.id }}</span>
-          {{ agenda.titulo }} - {{ agenda.descripcion }}
+          <div class="d-flex align-center">
+            <div>
+              <span class="badge badge-primary"> {{ agenda.id }} </span>
+            </div>
+            <span class="pl-2">{{ agenda.titulo }} - {{ agenda.descripcion }}  </span>
+            <span class="ml-auto">  
+              <span class="badge " 
+                    [ngClass]=" agenda.status ? 'badge-success' : 'badge-warning'"> 
+                    {{ agenda.status ? 'Completado' : 'No completado'}} 
+              </span>
+            </span>
+          </div>
+          
         </li>
       </ul>
       <div class="card mt-4">
@@ -23,22 +34,36 @@
             Insertar una nueva agenda
           </div>
           <div class="form-group">
-            <input type="text" placeholder="Insertar titulo" [(ngModel)]="selectedAgenda.titulo" class="form-control">
+            <input type="text" 
+                    placeholder="Insertar titulo" 
+                    [(ngModel)]="selectedAgenda.titulo" 
+                    class="form-control">
           </div>
           <div class="form-group">
-            <input type="text" placeholder="Insertar descripcion" [(ngModel)]="selectedAgenda.descripcion" class="form-control">
+            <input type="text" 
+                    placeholder="Insertar descripcion" 
+                    [(ngModel)]="selectedAgenda.descripcion" 
+                    class="form-control">
           </div>
-            <button (click)="addOrEdit()" class="btn btn-primary m-1">
+          <div class="d-flex">
+            <button (click)="addOrEdit()" 
+                    class="btn btn-primary m-1">
               Submit
             </button>
             <button *ngIf="selectedAgenda.id !== 0"
-              (click)="cancel()" class="btn btn-warning m-1">
+                    (click)="cancel()" 
+                    class="btn btn-warning m-1">
               Cancelar
             </button>
             <button *ngIf="selectedAgenda.id !== 0"
-              (click)="delete()" class="btn btn-danger m-1">
+                    (click)="delete()" 
+                    class="btn btn-danger m-1">
               Borrar
             </button>
+            <button *ngIf="selectedAgenda.id !== 0 && !selectedAgenda.status" 
+                    (click)="completado()"
+                    class="ml-auto btn btn-success"> Tarea completada! </button>
+          </div>
         </div>
       </div>
     </div>
